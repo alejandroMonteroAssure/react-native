@@ -3,6 +3,7 @@ import { IMovieRepository } from "../domain/IMovieRepository";
 import { Movie } from "../domain/movie";
 import { TMDB_ACCESS_TOKEN, TMDB_API_KEY, TMDB_BASE_URL } from '@env';
 import { mapToDomain } from "./Mappers";
+import { Genre } from "../domain/Genre";
 
 
 export class TMDBRepository implements IMovieRepository {
@@ -19,6 +20,24 @@ export class TMDBRepository implements IMovieRepository {
                 }
             });
             return response.data.results.map(mapToDomain);
+        }
+        catch (error) {
+            if (error instanceof AxiosError) {
+                console.error('TMDB API error:', error.response?.data || error.message);
+            } else {
+                console.error('Unexpected error:', error);
+            }
+            return [];
+        }
+    }
+
+    async getGenres(): Promise<Genre[]> {
+        try {
+            const response = await axios.get(
+                `${TMDB_BASE_URL}/3/genre/movie/list`,
+                { params: { api_key: TMDB_API_KEY, language: 'en-US' } }
+            );
+            return response.data.genres;
         }
         catch (error) {
             if (error instanceof AxiosError) {

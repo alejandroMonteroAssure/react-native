@@ -4,7 +4,6 @@ import {
   SafeAreaProvider,
 } from 'react-native-safe-area-context';
 import MoviesCarrousel from './src/components/MovieCarrousel/MoviesCarrouselComponent';
-
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -16,6 +15,7 @@ function App() {
           backgroundColor="transparent"
           translucent
         />
+        
         <MoviesCarrousel />
       </SafeAreaProvider>
     </GestureHandlerRootView>

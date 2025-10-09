@@ -9,16 +9,28 @@ import { TMDBRepository } from '../../services/infrastructure/TMDBRepository'
 import { Movie } from '../../services/domain/movie'
 import MovieElement from '../Movie/Movie'
 import CustomButton from '../Button/Button'
+import { Genre } from '../../services/domain/Genre'
+import { GetGenres } from '../../services/application/GetGenres'
+import NavBar from '../NavBar/NavBar'
 
 
 const width = Dimensions.get("window").width;
 
 const MoviesCarrousel = () => {
     const [popularMovies, setPopularMovies] = useState<Movie[]>([]);
+    const [genres, setGenres] = useState<Genre[]>([]);
+
     const ref = React.useRef<ICarouselInstance>(null);
     const progress = useSharedValue<number>(0);
     const movieRepository = new TMDBRepository();
     const getPopularMovies = new GetPopularMovies(movieRepository);
+    const getGenres = new GetGenres(movieRepository);
+
+    const fetchGenres = async () => {
+        const data = await getGenres.execute();
+        setGenres(data);
+        console.log(data);
+    };
 
     const fetchMovies = async () => {
         const data = await getPopularMovies.execute(1);
@@ -28,10 +40,14 @@ const MoviesCarrousel = () => {
 
     useEffect(() => {
         fetchMovies();
+        fetchGenres();
     }, []);
 
     return (
         <SafeAreaView style={movieStyles.container}>
+            <NavBar
+                genres={genres.slice(0, 5)}
+            />
             <View>
                 <Carousel
                     ref={ref}
