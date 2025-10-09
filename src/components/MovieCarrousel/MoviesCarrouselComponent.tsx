@@ -1,4 +1,4 @@
-import { Dimensions, Image, Text, View } from 'react-native'
+import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native'
 import React, { use, useEffect, useMemo, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel'
@@ -8,6 +8,7 @@ import { GetPopularMovies } from '../../services/application/GetPopularMovies'
 import { TMDBRepository } from '../../services/infrastructure/TMDBRepository'
 import { Movie } from '../../services/domain/movie'
 import MovieElement from '../Movie/Movie'
+import CustomButton from '../Button/Button'
 
 
 const width = Dimensions.get("window").width;
@@ -36,17 +37,31 @@ const MoviesCarrousel = () => {
                     ref={ref}
                     width={width}
                     height={width}
-                    data={popularMovies}
+                    data={popularMovies.slice(0, 5)}
                     onProgressChange={progress}
                     renderItem={({ index }) => {
                         const movie = popularMovies[index];
                         return (
-                        <MovieElement
-                            movie={movie}
-                            width={width}
-                        />
-                    )}}
+                            <MovieElement
+                                movie={movie}
+                                width={width}
+                            />
+                        )
+                    }}
                 />
+
+                <View
+                    style={movieStyles.buttonsContainer}
+                >
+                    <CustomButton
+                        text="+ Wishlist"
+                        type="secondary"
+                    />
+                    <CustomButton
+                        text="Details"
+                        type="primary"
+                    />
+                </View>
             </View>
         </SafeAreaView>
     )

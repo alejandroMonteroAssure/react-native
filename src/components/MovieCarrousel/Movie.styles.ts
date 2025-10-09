@@ -26,4 +26,11 @@ export const movieStyles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
   },
+
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 16,
+    marginHorizontal: 16,
+  }
 });
