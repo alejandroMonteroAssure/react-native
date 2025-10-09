@@ -4,14 +4,14 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import Home from './src/screens/Home';
+import Movies from './src/screens/Movie/Movies';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
     <SafeAreaProvider>
-      <Home />
+      <Movies/>
     </SafeAreaProvider>
   );
 }
