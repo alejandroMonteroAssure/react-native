@@ -31,6 +31,7 @@ export const movieStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 16,
-    marginHorizontal: 16,
+    marginHorizontal: 24,
+    gap: 16
   }
 });

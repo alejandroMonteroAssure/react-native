@@ -7,11 +7,13 @@ import { movieStyles } from './Movie.styles'
 import { GetPopularMovies } from '../../services/application/GetPopularMovies'
 import { TMDBRepository } from '../../services/infrastructure/TMDBRepository'
 import { Movie } from '../../services/domain/movie'
-import MovieElement from '../Movie/Movie'
-import CustomButton from '../Button/Button'
+import MovieElement from '../Movie/components/MovieCard'
+import CustomButton from '../atoms/Button/Button'
 import { Genre } from '../../services/domain/Genre'
 import { GetGenres } from '../../services/application/GetGenres'
 import NavBar from '../NavBar/NavBar'
+import LinearGradient from 'react-native-linear-gradient';
+import { CustomText } from '../atoms/Text/Text'
 
 
 const width = Dimensions.get("window").width;
@@ -44,28 +46,41 @@ const MoviesCarrousel = () => {
     }, []);
 
     return (
-        <SafeAreaView style={movieStyles.container}>
-            <NavBar
-                genres={genres.slice(0, 5)}
+        <View style={{ position: "relative" }}>
+            <LinearGradient
+                colors={['rgba(0,0,0,0.6)', 'rgba(0,0,0,0.4)', 'rgba(0,0,0,0)']}
+                locations={[0, 0.5, 1]}
+                style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: 105,
+                    zIndex: 2
+                }}
             />
-            <View>
-                <Carousel
-                    ref={ref}
-                    width={width}
-                    height={width}
-                    data={popularMovies.slice(0, 5)}
-                    onProgressChange={progress}
-                    renderItem={({ index }) => {
-                        const movie = popularMovies[index];
-                        return (
-                            <MovieElement
-                                movie={movie}
-                                width={width}
-                            />
-                        )
-                    }}
-                />
-
+            <Carousel
+                ref={ref}
+                width={width}
+                height={430}
+                data={popularMovies.slice(0, 5)}
+                onProgressChange={progress}
+                renderItem={({ index }) => {
+                    const movie = popularMovies[index];
+                    return (
+                        <MovieElement
+                            movie={movie}
+                            width={width}
+                            height={430}
+                        />
+                    )
+                }}
+            />
+            <View style={{ marginTop: -100, paddingVertical: 20 }}>
+                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 115, gap: 36 }}>
+                    <CustomText variant='subtitle'>My list</CustomText>
+                    <CustomText variant='subtitle'>Discover</CustomText>
+                </View>
                 <View
                     style={movieStyles.buttonsContainer}
                 >
@@ -79,7 +94,7 @@ const MoviesCarrousel = () => {
                     />
                 </View>
             </View>
-        </SafeAreaView>
+        </View>
     )
 }
 

@@ -9,6 +9,6 @@ export const buttonStyles = StyleSheet.create({
         alignItems: 'center',
     },
     text: {
-        color: 'white', fontWeight: 'bold'
+        color: 'white', fontWeight: 'bold', fontSize: 16
     }
 });
