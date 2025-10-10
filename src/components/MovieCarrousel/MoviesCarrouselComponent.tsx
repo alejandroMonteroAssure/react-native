@@ -76,7 +76,10 @@ const MoviesCarrousel = () => {
                     )
                 }}
             />
-            <View style={{ marginTop: -100, paddingVertical: 20 }}>
+            <LinearGradient 
+                colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.5)', 'rgba(0,0,0,0.8)', 'rgba(0,0,0,1)']} 
+                locations={[0, 0.24, 0.52, 1]} 
+                style={{ marginTop: -120, height: 120, paddingVertical: 20, backgroundColor: '' }}>
                 <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 115, gap: 36 }}>
                     <CustomText variant='subtitle'>My list</CustomText>
                     <CustomText variant='subtitle'>Discover</CustomText>
@@ -93,6 +96,9 @@ const MoviesCarrousel = () => {
                         type="primary"
                     />
                 </View>
+            </LinearGradient>
+            <View style={{ backgroundColor: '#000', height: 1000 }}>
+
             </View>
         </View>
     )
